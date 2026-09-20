@@ -1,0 +1,26 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large database and raw data files (>100MB GitHub limit)
+*.db
+*.db-shm
+*.db-wal
+*.jsonl
+turkanime_arsiv/turkanime_arsiv/mirror/
+turkanime_arsiv/turkanime_arsiv/links.jsonl
+turkanime_arsiv/turkanime_arsiv/*.db*
+
+# PyInstaller build outputs
+dist/
+build/
+*.spec
+
+# Environments & Editor
+venv/
+env/
+.venv/
+.idea/
+.vscode/
+*.swp
