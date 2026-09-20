@@ -6,8 +6,8 @@
   'use strict';
 
   // ─── Configuration ──────────────────────────────────────────────────────
-  const APP    = document.getElementById('app');
-  const TOAST  = document.getElementById('toast-container');
+  const APP = document.getElementById('app');
+  const TOAST = document.getElementById('toast-container');
   const SEARCH = document.getElementById('nav-search-input');
 
   // ─── Utility helpers ────────────────────────────────────────────────────
@@ -46,26 +46,26 @@
       if (!res.ok) throw new Error(`API Hatası: ${res.status}`);
       return res.json();
     },
-    anime(params = {})       { const q = new URLSearchParams(params); return this.get(`/api/anime?${q}`); },
-    animeDetail(slug)        { return this.get(`/api/anime/${slug}`); },
-    bolum(slug, bolumSlug)   { return this.get(`/api/anime/${slug}/bolum/${bolumSlug}`); },
-    turler()                 { return this.get('/api/turler'); },
-    istatistik()             { return this.get('/api/istatistik'); },
-    rastgele(adet = 12)      { return this.get(`/api/rastgele?adet=${adet}`); },
+    anime(params = {}) { const q = new URLSearchParams(params); return this.get(`/api/anime?${q}`); },
+    animeDetail(slug) { return this.get(`/api/anime/${slug}`); },
+    bolum(slug, bolumSlug) { return this.get(`/api/anime/${slug}/bolum/${bolumSlug}`); },
+    turler() { return this.get('/api/turler'); },
+    istatistik() { return this.get('/api/istatistik'); },
+    rastgele(adet = 12) { return this.get(`/api/rastgele?adet=${adet}`); },
   };
 
   // ─── Favorites (localStorage) ───────────────────────────────────────────
   const Fav = {
     _key: 'animedepo_favorites',
-    _get()  { try { return JSON.parse(localStorage.getItem(this._key) || '[]'); } catch { return []; } },
+    _get() { try { return JSON.parse(localStorage.getItem(this._key) || '[]'); } catch { return []; } },
     _set(a) { localStorage.setItem(this._key, JSON.stringify(a)); },
-    list()  { return this._get(); },
-    has(s)  { return this._get().some(f => f.slug === s); },
+    list() { return this._get(); },
+    has(s) { return this._get().some(f => f.slug === s); },
     toggle(slug, baslik, resim) {
       let a = this._get();
       const i = a.findIndex(f => f.slug === slug);
       if (i >= 0) { a.splice(i, 1); showToast('Favorilerden çıkarıldı'); }
-      else        { a.unshift({ slug, baslik, resim }); showToast('Favorilere eklendi ♥'); }
+      else { a.unshift({ slug, baslik, resim }); showToast('Favorilere eklendi ♥'); }
       this._set(a);
       return i < 0;
     },
@@ -349,7 +349,7 @@
   async function loadBrowseResults() {
     const grid = document.getElementById('browse-grid');
     const info = document.getElementById('browse-info');
-    const pag  = document.getElementById('browse-pagination');
+    const pag = document.getElementById('browse-pagination');
     if (!grid) return;
 
     grid.innerHTML = skeletonCards(24);
@@ -477,7 +477,7 @@
   }
 
   // Global favorite toggle (called from onclick)
-  window.toggleFav = function(slug, baslik, resim) {
+  window.toggleFav = function (slug, baslik, resim) {
     const added = Fav.toggle(slug, baslik, resim);
     const btn = document.getElementById('fav-btn');
     if (btn) {
@@ -495,9 +495,9 @@
       const d = await API.bolum(slug, bolumSlug);
 
       // Separate direct (url) links from external/download links
-      const urlLinks   = d.linkler.filter(l => l.tip === 'url');
+      const urlLinks = d.linkler.filter(l => l.tip === 'url');
       const otherLinks = d.linkler.filter(l => l.tip !== 'url');
-      const allTabs    = d.linkler; // Show every source as a tab
+      const allTabs = d.linkler; // Show every source as a tab
       const activePlayer = urlLinks.length > 0 ? urlLinks[0] : null;
 
       const playerTabs = allTabs.map((l, i) => {
@@ -534,12 +534,12 @@
 
           <div class="player-container" id="player-container">
             ${activePlayer
-              ? `<iframe src="${esc(activePlayer.deger)}" allowfullscreen allow="autoplay; fullscreen"></iframe>`
-              : `<div class="player-placeholder">
+          ? `<iframe src="${esc(activePlayer.deger)}" allowfullscreen allow="autoplay; fullscreen"></iframe>`
+          : `<div class="player-placeholder">
                   <div class="player-placeholder-icon">📺</div>
                   <div class="player-placeholder-text">Kaynak seçmek için aşağıdan bir sekme seçin.</div>
                 </div>`
-            }
+        }
           </div>
 
           <div class="player-controls">
@@ -655,8 +655,8 @@
   function route() {
     const hash = location.hash.slice(1) || '/';
     const parts = hash.split('?');
-    const path  = parts[0];
-    const qs    = new URLSearchParams(parts[1] || '');
+    const path = parts[0];
+    const qs = new URLSearchParams(parts[1] || '');
 
     // Reset browse grid reference when leaving browse page
     if (!path.startsWith('/ara')) {
@@ -667,7 +667,7 @@
       renderHome();
     } else if (path === '/ara') {
       const params = {};
-      if (qs.has('q'))   params.q   = qs.get('q');
+      if (qs.has('q')) params.q = qs.get('q');
       if (qs.has('tur')) params.tur = qs.get('tur');
       if (qs.has('sayfa')) params.sayfa = qs.get('sayfa');
       renderBrowse(params);
