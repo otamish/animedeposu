@@ -12,10 +12,11 @@ turkanime_arsiv/turkanime_arsiv/mirror/
 turkanime_arsiv/turkanime_arsiv/links.jsonl
 turkanime_arsiv/turkanime_arsiv/*.db*
 
-# PyInstaller build outputs
+# PyInstaller build outputs & archives
 dist/
 build/
 *.spec
+*.zip
 
 # Environments & Editor
 venv/
