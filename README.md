@@ -22,9 +22,7 @@
 
 ## 📖 Genel Bakış
 
-**AnimeDepo**, Türk anime topluluğunun yıllar boyunca oluşturduğu geniş anime arşivini modern web standartlarıyla bir araya getiren bir Single Page Application (SPA) arayüzüdür. 
-
-Artık herhangi bir dosya veya `.exe` indirmeye gerek kalmadan, doğrudan **Cloudflare Pages** (`pages.dev`) üzerinde barındırılarak web tarayıcınızdan tek tıkla çalışır!
+**AnimeDepo**, Türk anime topluluğunun yıllar boyunca oluşturduğu geniş anime arşivini modern web standartlarıyla bir araya getiren bir Single Page Application (SPA) arayüzüdür.
 
 Arşiv veritabanını optimize edilmiş indekslerle sorgular, zengin metadata (türler, puanlar, özetler, yayın tarihleri) ve alternatif video oynatıcı bağlantılarıyla eksiksiz bir izleme deneyimi sunar.
 
@@ -37,8 +35,6 @@ Arşiv veritabanını optimize edilmiş indekslerle sorgular, zengin metadata (t
 
 ## ✨ Özellikler
 
-- **🌐 İndirmesiz Bulut Deneyimi (Cloudflare Pages)**:
-  - Bilgisayarınıza veya telefonunuza herhangi bir `.exe` ya da arşiv dosyası indirmenize gerek yoktur. Doğrudan web tarayıcınız üzerinden hızlı ve güvenli şekilde çalışır.
 - **⚡ Hızlı & Dinamik SPA (Single Page Application)**:
   - Sayfa yenilenmeden kesintisiz geçiş sağlayan Hash-tabanlı yönlendirici (`#/`, `#/ara`, `#/favoriler`, `#/anime/:slug`, `#/izle/:slug/:bolum`).
 - **🔍 Gelişmiş Arama & Filtreleme**:
@@ -59,8 +55,6 @@ Arşiv veritabanını optimize edilmiş indekslerle sorgular, zengin metadata (t
 ---
 
 ## 🌐 Canlı Kullanım (Cloudflare Pages)
-
-AnimeDepo'yu kullanmak için **herhangi bir kurulum yapmanıza veya dosya indirmenize gerek yoktur!**
 
 Platforma doğrudan tarayıcınız üzerinden erişebilirsiniz:
 
@@ -139,19 +133,6 @@ Backend, aşağıdaki REST uç noktaları üzerinden JSON formatında veri sunar
 | `GET` | `/api/istatistik` | Toplam anime, bölüm ve link sayıları | - |
 | `GET` | `/api/rastgele` | Rastgele önerilen animeler | `adet` (varsayılan: 12) |
 | `GET` | `/api/cover/<slug>` | Anime kapak görseli yönlendirmesi (302) | `slug` |
-
----
-
-## 🎨 Arayüz ve Tasarım
-
-- **Hero Bölümü**:
-  - **Sol Taraf**: Google Drive metadata arşiv kaynağına doğrudan bağlantı.
-  - **Orta**: Dinamik istatistik sayaçları ve platform sloganı.
-  - **Sağ Taraf**: Geliştirici `@otamish_` Twitter/X profiline estetik yönlendirme kartı.
-- **Anime Kartları**:
-  - Hover zoom efektleri, bölüm sayısı rozetleri ve puan göstergeleri.
-- **Bölüm Oynatıcı Ekranı**:
-  - Kaynak seçici butonlar (Sibnet, Fembed vb.), tam ekran video alanı ve hızlı bölüm geçiş menüsü.
 
 ---
 
