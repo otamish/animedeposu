@@ -1,14 +1,29 @@
+import sys
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
+
 import os
+
+# .env dosyasından ortam değişkenlerini yükle
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 import json
 import sqlite3
-import random
 import urllib.parse
 import urllib.request as _urllib
 # pyrefly: ignore [missing-import]
 from flask import Flask, g, jsonify, request, send_from_directory, Response, redirect
 
+
 # ─── Configuration ───────────────────────────────────────────────────────────
-import sys
 
 if getattr(sys, 'frozen', False):
     # PyInstaller exe ortamı
@@ -19,16 +34,23 @@ else:
     BUNDLE_DIR = BASE_DIR
 
 def _resolve_resource(rel_path):
-    p = os.path.join(BASE_DIR, rel_path)
-    if os.path.exists(p):
-        return p
-    return os.path.join(BUNDLE_DIR, rel_path)
+    candidates = [
+        os.path.join(BASE_DIR, rel_path),
+        os.path.join(BUNDLE_DIR, rel_path),
+        os.path.join(os.path.dirname(BASE_DIR), rel_path),
+        os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), rel_path),
+        os.path.join(os.getcwd(), rel_path),
+    ]
+    for p in candidates:
+        if os.path.exists(p):
+            return os.path.abspath(p)
+    return os.path.abspath(os.path.join(BASE_DIR, rel_path))
 
 DB_PATH = _resolve_resource(os.path.join('turkanime_arsiv', 'turkanime_arsiv', 'turkanime.db'))
 MIRROR_PATH = _resolve_resource(os.path.join('turkanime_arsiv', 'turkanime_arsiv', 'mirror'))
 ANIMELER_PATH = os.path.join(MIRROR_PATH, 'animeler')
-CACHE_FILE = os.path.join(BASE_DIR, 'anime_meta_cache.json')
-COVERS_CACHE_FILE = os.path.join(BASE_DIR, 'anime_covers.json')
+CACHE_FILE = _resolve_resource('anime_meta_cache.json')
+COVERS_CACHE_FILE = _resolve_resource('anime_covers.json')
 
 _static_dir = _resolve_resource('static')
 app = Flask(__name__, static_folder=_static_dir, static_url_path='/static')
@@ -148,7 +170,7 @@ def build_meta_cache():
 # ─── Static / SPA entry point ───────────────────────────────────────────────
 @app.route('/')
 def index():
-    return send_from_directory('static', 'index.html')
+    return send_from_directory(_static_dir, 'index.html')
 
 
 # ─── Kapak Görseli Çözücü (Jikan MAL + AniList/Kitsu Yedek) ───────────────────
@@ -502,9 +524,16 @@ if __name__ == '__main__':
     _debug = _os.environ.get('FLASK_DEBUG', '0') == '1'
     build_meta_cache()
 
-    # Tarayıcıyı otomatik aç (özellikle .exe ve çift tıklama kullanıcıları için)
+    # Tarayıcıyı otomatik aç (sunucu hazır olduğunda açar)
     def _open_browser():
-        time.sleep(1.2)
+        for _ in range(30):
+            time.sleep(0.4)
+            try:
+                with _urllib.urlopen('http://127.0.0.1:5000/', timeout=1) as resp:
+                    if resp.status == 200:
+                        break
+            except Exception:
+                continue
         try:
             webbrowser.open('http://localhost:5000')
         except Exception:
@@ -512,5 +541,9 @@ if __name__ == '__main__':
 
     threading.Thread(target=_open_browser, daemon=True).start()
 
-    print("\n  AnimeDepo başlatıldı! Tarayıcınız açılıyor: http://localhost:5000\n")
+    print("\n" + "=" * 60)
+    print("  ✦ AnimeDepo Hazır!")
+    print("  ✦ Tarayıcı adresiniz: http://localhost:5000")
+    print("  ✦ Programı kapatmak için bu pencereyi kapatabilirsiniz.")
+    print("=" * 60 + "\n")
     app.run(debug=_debug, host='0.0.0.0', port=5000)

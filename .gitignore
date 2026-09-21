@@ -24,3 +24,9 @@ env/
 .idea/
 .vscode/
 *.swp
+
+# Secrets
+.env
+
+# AI agent skills (local only)
+.agents/

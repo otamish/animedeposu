@@ -96,6 +96,7 @@
     const genres = (a.turler || []).slice(0, 2)
       .map(t => `<span class="genre-tag">${esc(t)}</span>`).join('');
     const score = a.puan > 0 ? `<span class="badge badge-score">★ ${a.puan.toFixed(1)}</span>` : '';
+
     return `
       <div class="anime-card" onclick="location.hash='#/anime/${esc(a.slug)}'">
         <div class="anime-card-image">
@@ -256,7 +257,7 @@
     // Load random anime
     try {
       const random = await API.rastgele(12);
-      document.getElementById('random-grid').innerHTML = random.map(animeCard).join('');
+      document.getElementById('random-grid').innerHTML = random.map(a => animeCard(a)).join('');
     } catch {
       document.getElementById('random-grid').innerHTML = '<p class="error-text">Yüklenemedi.</p>';
     }

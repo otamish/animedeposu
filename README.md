@@ -4,15 +4,17 @@
 
 ![AnimeDepo Banner](https://img.shields.io/badge/AnimeDepo-Türk%20Anime%20Arşivi-8b5cf6?style=for-the-badge&logo=playstation&logoColor=white)
 
+[![Cloudflare Pages](https://img.shields.io/badge/Hosted_on-Cloudflare_Pages-F38020?style=flat-square&logo=cloudflare&logoColor=white)](https://animedeposu.pages.dev)
 [![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-Web%20Framework-000000?style=flat-square&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-[![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?style=flat-square&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
 [![License](https://img.shields.io/badge/Lisans-MIT-success?style=flat-square)](LICENSE)
 [![Twitter Follow](https://img.shields.io/badge/Twitter-@otamish__-1DA1F2?style=flat-square&logo=x&logoColor=white)](https://x.com/otamish_)
 
 **Binlerce anime, on binlerce bölüm ve milyonlarca oynatıcı linkini tek çatı altında toplayan modern, hızlı ve estetik Türk Anime Arşivi platformu.**
 
-[Özellikler](#-özellikler) • [Ekran Görüntüsü & Arayüz](#-arayüz-ve-tasarım) • [Kurulum](#-kurulum) • [Kullanım](#-kullanım) • [API Uç Noktaları](#-api-dokümantasyonu) • [Kaynak & Atıf](#-kaynak--atıf)
+🌐 **Canlı Web Sitesi:** [animedeposu.pages.dev](https://animedeposu.pages.dev)
+
+[Özellikler](#-özellikler) • [Canlı Kullanım](#-canlı-kullanım-cloudflare-pages) • [Yerel Geliştirme](#-geliştiriciler-için-yerel-kurulum) • [API Uç Noktaları](#-api-dokümantasyonu) • [Kaynak & Atıf](#-kaynak--atıf)
 
 </div>
 
@@ -20,7 +22,11 @@
 
 ## 📖 Genel Bakış
 
-**AnimeDepo**, Türk anime topluluğunun yıllar boyunca oluşturduğu geniş anime arşivini modern web standartlarıyla bir araya getiren bir Single Page Application (SPA) arayüzüdür. Arşiv veritabanını SQLite üzerinde optimize edilmiş indekslerle sorgular, zengin metadata (türler, puanlar, özetler, yayın tarihleri) ve alternatif video oynatıcı bağlantılarıyla eksiksiz bir deneyim sunar.
+**AnimeDepo**, Türk anime topluluğunun yıllar boyunca oluşturduğu geniş anime arşivini modern web standartlarıyla bir araya getiren bir Single Page Application (SPA) arayüzüdür. 
+
+Artık herhangi bir dosya veya `.exe` indirmeye gerek kalmadan, doğrudan **Cloudflare Pages** (`pages.dev`) üzerinde barındırılarak web tarayıcınızdan tek tıkla çalışır!
+
+Arşiv veritabanını optimize edilmiş indekslerle sorgular, zengin metadata (türler, puanlar, özetler, yayın tarihleri) ve alternatif video oynatıcı bağlantılarıyla eksiksiz bir izleme deneyimi sunar.
 
 ### 📊 Arşiv İstatistikleri
 - **6.107+** Anime
@@ -31,8 +37,10 @@
 
 ## ✨ Özellikler
 
+- **🌐 İndirmesiz Bulut Deneyimi (Cloudflare Pages)**:
+  - Bilgisayarınıza veya telefonunuza herhangi bir `.exe` ya da arşiv dosyası indirmenize gerek yoktur. Doğrudan web tarayıcınız üzerinden hızlı ve güvenli şekilde çalışır.
 - **⚡ Hızlı & Dinamik SPA (Single Page Application)**:
-  - Sayfa yenilenmeden kesintisiz geçiş sağlayan Hash-tabanlı istemci yönlendiricisi (`#/`, `#/ara`, `#/favoriler`, `#/anime/:slug`, `#/izle/:slug/:bolum`).
+  - Sayfa yenilenmeden kesintisiz geçiş sağlayan Hash-tabanlı yönlendirici (`#/`, `#/ara`, `#/favoriler`, `#/anime/:slug`, `#/izle/:slug/:bolum`).
 - **🔍 Gelişmiş Arama & Filtreleme**:
   - Başlık veya slug üzerinden anlık arama.
   - Türlere (Aksiyon, Macera, Komedi, Fantastik vb.) ve kategorilere göre filtreleme.
@@ -50,32 +58,27 @@
 
 ---
 
-## ⚡ Hızlı Başlatma (Hiç Kodlama & Python Bilmeyenler İçin)
+## 🌐 Canlı Kullanım (Cloudflare Pages)
 
-AnimeDepo'yu kullanmak için **kodlama veya Python bilmenize hiç gerek yoktur!** İki pratik yoldan birini seçebilirsiniz:
+AnimeDepo'yu kullanmak için **herhangi bir kurulum yapmanıza veya dosya indirmenize gerek yoktur!**
 
-### Yöntem A: Hazır `.exe` İle Çalıştırma (En Kolayı ⭐)
-*Bilgisayarınızda Python kurulu olmasına gerek kalmaz.*
-1. [Releases](https://github.com/otamish/animedeposu/releases) sayfasına gidin.
-2. En son sürümdeki **`AnimeDepo-Windows.zip`** dosyasını indirin ve masaüstüne çıkarın.
-3. Klasörün içindeki **`AnimeDepo.exe`** dosyasına çift tıklayın. Tarayıcınız otomatik olarak açılacaktır!
+Platforma doğrudan tarayıcınız üzerinden erişebilirsiniz:
 
-### Yöntem B: `baslat.bat` İle Tek Tıkla Çalıştırma
-*Kaynak kodları ZIP olarak indirdiyseniz:*
-1. [python.org](https://www.python.org/downloads/) adresinden Python'ı kurun *(Kurarken `[x] Add python.exe to PATH` kutusunu işaretleyin)*.
-2. Klasör içindeki **`baslat.bat`** dosyasına çift tıklayın. Her şey otomatik hazırlanacaktır.
+👉 **[https://animedeposu.pages.dev](https://animedeposu.pages.dev)**
+
+*(Tüm masaüstü ve mobil tarayıcılarla tam uyumludur.)*
 
 ---
 
-## 💻 Geliştiriciler & Açık Kaynak Severler İçin
+## 💻 Geliştiriciler İçin Yerel Kurulum
 
-Projenin tüm kaynak kodları **tamamen açık ve şeffaftır**. Kodları inceleyebilir, yeni özellikler ekleyebilir veya kendi yerel sunucunuzda geliştirebilirsiniz:
+Projeyi kendi yerel makinenizde geliştirmek veya katkıda bulunmak isterseniz:
 
 ### Gereksinimler
 - **Python 3.8** veya üzeri
 - `pip` (Python Paket Yöneticisi)
 
-### 1. Depoyu Klonlayın veya İndirin
+### 1. Depoyu Klonlayın
 ```bash
 git clone https://github.com/otamish/animedeposu.git
 cd animedeposu
@@ -86,66 +89,33 @@ cd animedeposu
 pip install -r requirements.txt
 ```
 
-*(Projeyi çalıştırmak için temel olarak `flask` gereklidir.)*
-
----
-
-## 💻 Kullanım
-
-### Web Sunucusunu Başlatma
-Sunucuyu yerel makinenizde başlatmak için aşağıdaki komutu çalıştırın:
-
+### 3. Sunucuyu Başlatın
 ```bash
 python app.py
 ```
 
-Konsolda sunucunun hazır olduğunu belirten çıktıyı gördükten sonra tarayıcınızdan şu adrese gidin:
+Sunucu başladıktan sonra tarayıcınızdan adrese gidin:  
 👉 **[http://localhost:5000](http://localhost:5000)**
-
-### Kapak Fotoğraflarını Toplu Güncelleme (İsteğe Bağlı)
-Arşivdeki animelerin kapak fotoğraflarını popüler anime veritabanlarından çekip yerel önbelleğe (`anime_covers.json`) kaydetmek için:
-
-```bash
-# İlk 100 popüler animenin kapağını günceller:
-python kapaklari_guncelle.py
-
-# Belirli bir adet için (örneğin 500 anime):
-python kapaklari_guncelle.py --limit 500
-
-# Tüm arşivi sırayla taramak için:
-python kapaklari_guncelle.py --hepsi
-```
-
-### Kendi EXE Dosyanızı Derleme (İsteğe Bağlı)
-Projeyi bağımsız bir `.exe` haline getirmek isterseniz:
-
-```bash
-python build_exe.py
-```
-Bu komut gerekli araçları otomatik kurarak `dist/AnimeDepo/` klasörü içerisine Python gerektirmeyen `AnimeDepo.exe` çıktısını üretir.
 
 ---
 
 ## 📁 Proje Yapısı
 
 ```plaintext
-turkanimetv/
+animedeposu/
 │
-├── AnimeDepo.exe               # (Releases ile sunulan) Tek tıkla bağımsız başlatıcı
-├── baslat.bat                  # Kod bilmeyenler için tek tıkla otomatik başlatıcı
-├── build_exe.py                # Standalone EXE derleme betiği
 ├── app.py                      # Flask REST API ve backend sunucu çekirdeği
 ├── kapaklari_guncelle.py       # MyAnimeList, AniList ve Kitsu kapak güncelleyici
 ├── anime_covers.json           # Çözülmüş kapak fotoğrafları önbelleği
 ├── anime_meta_cache.json       # Anime özetleri, türleri ve puanları önbelleği
 ├── requirements.txt            # Python bağımlılıkları
 │
-├── static/                     # Frontend statik dosyaları
+├── static/                     # Frontend statik dosyaları (Cloudflare Pages üzerinde barındırılan kısım)
 │   ├── index.html              # Ana SPA HTML şablonu
 │   ├── css/
 │   │   └── style.css           # Tasarım sistemi, Glassmorphism & Responsive CSS
 │   └── js/
-│       └── app.js              # SPA router, API istemcisi ve UI render mantığı
+│       └── app.js              # SPA router ve API istemcisi
 │
 └── turkanime_arsiv/            # Arşiv veritabanı ve kaynaklar
     └── turkanime_arsiv/
@@ -160,9 +130,9 @@ turkanimetv/
 
 Backend, aşağıdaki REST uç noktaları üzerinden JSON formatında veri sunar:
 
-| Metot | Uç Nokta | Açıklama | Parametreler |
+| Metot | Uç Nokta | Açıklama | Parametreler / Gövde |
 | :--- | :--- | :--- | :--- |
-| `GET` | `/api/anime` | Sayfalanmış anime listesi | `q`, `tur`, `kategori`, `sayfa`, `limit`, `siralama` (`baslik`, `puan`) |
+| `GET` | `/api/anime` | Sayfalanmış anime listesi | `q`, `tur`, `kategori`, `sayfa`, `limit`, `siralama` |
 | `GET` | `/api/anime/<slug>` | Belirli bir animenin tüm detayları ve bölüm listesi | `slug` (örn: `naruto`) |
 | `GET` | `/api/anime/<slug>/bolum/<bolum_slug>` | Bölüme ait video oynatıcı linkleri | `slug`, `bolum_slug` |
 | `GET` | `/api/turler` | Veritabanında kayıtlı tüm anime türleri listesi | - |
